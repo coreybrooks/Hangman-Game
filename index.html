@@ -7,14 +7,17 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 <!--need to use a reset.css file unless I include a bootstrap CDN-->
 </head>
-<body>
+<body class="jumbotron">
   <section class="main-section">
-   <h1>Press Any Key to Get Started!</h1>
-   <h2>Wins</h2>
-   <h2>Current Word</h2>
-     <div class="blanks">- - - - - -   	
-     </div>
-   <h2>Number of Guesses Remaining</h2>
+   <h1>Hangman Movie Edition</h1>
+   <h2>Press Any Key to Get Started!</h2>
+   <h3>Wins</h3>
+   <h2 id='currentWord'>Current Word</h2>
+   <!--blank div placeholder for the movie title-->
+     <h2 id="blanks"></h2>
+   <h3 id='remaining-guesses'>Number of Remaining Guesses: 10</h3>
+   <h3>Letters Already Chosen</h3>
+     <h2 id='alreadyGuessed'></h2>
   </section>
 
 <script src='assets/javascript/game.js'></script>
