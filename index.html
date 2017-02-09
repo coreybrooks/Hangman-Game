@@ -4,22 +4,46 @@
     <meta charset="utf-8">
 	<title>Corey's Hangman Game</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="http://bootswatch.com/cyborg/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 <!--need to use a reset.css file unless I include a bootstrap CDN-->
 </head>
-<body class="jumbotron">
-  <section class="main-section">
-   <h1>Hangman Movie Edition</h1>
-   <h2>Press Any Key to Get Started!</h2>
-   <h3>Wins</h3>
-   <h2 id='currentWord'>Current Word</h2>
-   <!--blank div placeholder for the movie title-->
-     <h2 id="blanks"></h2>
-   <h3 id='remaining-guesses'>Number of Remaining Guesses: 10</h3>
-   <h3>Letters Already Chosen</h3>
-     <h2 id='alreadyGuessed'></h2>
-  </section>
 
+<body class="jumbotron">
+<div class="container">
+  <h1>Hangman Movie Edition</h1>
+  <div class="row">
+    <div class="col-lg-4 firstSection">
+    	<h3 id="placeholder">LET'S PLAY!!</h3>
+    	<div class="imageDiv"><img id='movieImage' src="assets/images/atTheMovies3.png"></div>
+               <div class="row">
+				    <h3 class="col-md-5"  id='winsDiv'>
+					    <p>WINS: 0</p>
+					    <p>LOSSES: 0</p>
+				    </h3>
+
+				    <h3 class="col-md-5" id='remaining-guesses'>
+				        <p>Remaining</p>
+				        <p>Guesses: 10</p>
+				    </h3>
+			   </div> 
+    </div>
+
+    <div class="col-lg-7 secondSection">
+		  <section class="main-section">
+		   <h3 id="topLeft">Press Any Key to Get Started!!</h3>
+		   <h3 id='currentWord'>GUESS THE LETTERS</h3>
+		   <!--blank div placeholder for the movie title-->
+		     <h2 id="blanks"></h2>
+		   <h3 id="deadLetters">DEAD LETTERS:</h3>
+		   <h2 id='alreadyGuessed'></h2>
+		  </section>
+    </div>
+
+    </div>
+
+  </div>	  
+</div>
 <script src='assets/javascript/game.js'></script>
 
 </body>

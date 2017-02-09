@@ -5,7 +5,10 @@
 
 // array of movie titles
   var movieTitles = ['gladiator', 'twilight', 'cinderella', 'uninhabited', 'inception', 'frozen', 'hancock', 'dracula',
-   'titanic', 'aladdin', 'armageddon', 'enchanted', 'taken', 'twins'];
+   'titanic', 'aladdin', 'armageddon', 'enchanted', 'taken', 'twins', 'avatar', 'transformers', 'frankenstein'];
+
+  var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
+   "V", "W", "X", "Y", "Z"];
 
 
 //These get reset when a new word is chosen. win or loss..
@@ -15,7 +18,7 @@ numberOfRemainingGuesses = 10;
        // empty array which to push the user choices, in order to keep track of letters already chosen         
 var isPushed = []; 
 var guesses = '';
-
+var wins = 0, losses = 0;
 //Sets the inital blank title so the player can see how many characters are in the title
 title = '';
 for (i=0; i<chosenMovie.length; i++) {title += '_';};
@@ -29,9 +32,9 @@ document.onkeyup = function(event) {
 // Determine which key was pressed and converts all to lowercase
   var userGuess = event.key.toLowerCase();
 
-// The following block of statements execute if the letter has not been chosen yet
+// The following block of statements execute if the letter has not been chosen yet, AND the letter is in the letter array
 
-   if (isPushed.indexOf(userGuess) === -1) {
+   if ((isPushed.indexOf(userGuess) === -1) && (letters.indexOf(userGuess.toUpperCase()) >= 0)) {
    	    // push the user choices to the empty array
         isPushed.push(userGuess);
         title = '';
@@ -57,21 +60,71 @@ document.onkeyup = function(event) {
 
         //displays the progress in the blanks div and alreadyGuessed div
         document.querySelector('#blanks').innerHTML=title;
-
-
-        console.log(userGuess);
-        console.log(isPushed);
-        console.log(guesses);
-        console.log(chosenMovie);
-        console.log(title);
     }
 
 
-    	  var html = "Number of Remaining Guesses: " + numberOfRemainingGuesses;
+        var html = "<p>Remaining Guesses: " + numberOfRemainingGuesses + "</p>";
     	  document.getElementById('remaining-guesses').innerHTML=html;
-          document.getElementById('alreadyGuessed').innerHTML=guesses;
+          document.getElementById('alreadyGuessed').innerHTML=guesses.toUpperCase();
+console.log(chosenMovie);
 
+
+// The section below resets the play area and adds a win to the win counter if the player gets all the letters
+
+        if (title.indexOf('_') === -1) {    //if no more blanks are in the title
+        	wins++;
+          var source = 'assets/images/' + chosenMovie + '.jpg'; //uses the current chosenMovie to set a variable
+          console.log(source);                                  //to change the movie image and title in side panel
+          document.getElementById('movieImage').src = source;
+          document.getElementById('placeholder').innerHTML = chosenMovie.toUpperCase();
+
+	       	chosenMovie = movieTitles[Math.floor(Math.random()*movieTitles.length)];  //choose a new movie
+	    	isPushed = [];   //clear the variables that are used for tracking progress
+	        guesses = '';
+	        numberOfRemainingGuesses=10;
+	        title = ''; 
+
+	        var winsDisplay = "<p>WINS: " + wins + "</p>" + "<p>LOSSES: " + losses + "</p>"; 
+	        document.getElementById('winsDiv').innerHTML=winsDisplay;  //reset the display areas
+	           for (i=0; i<chosenMovie.length; i++) {
+	           	title += "_";
+	           }
+	        document.getElementById('blanks').innerHTML=title;  
+	        document.getElementById('alreadyGuessed').innerHTML=guesses.toUpperCase();
+	            	  var html = "<p>Remaining Guesses: " + numberOfRemainingGuesses + "</p>";
+	        document.getElementById('remaining-guesses').innerHTML=html;
+  	    }
+
+// The section below resets the play area and in the case that the player uses all of their guesses
+
+        if (numberOfRemainingGuesses === 0) {
+            losses++;
+          var source = 'assets/images/' + chosenMovie + '.jpg'; //uses the current chosenMovie to set a variable
+          console.log(source);                                  //to change the movie image and title in side panel
+          document.getElementById('movieImage').src = source;
+          document.getElementById('placeholder').innerHTML = chosenMovie.toUpperCase();
+  
+	       	chosenMovie = movieTitles[Math.floor(Math.random()*movieTitles.length)];  //choose a new movie
+	    	isPushed = [];   //clear the variables that are used for tracking progress
+	        guesses = '';
+	        numberOfRemainingGuesses=10;
+	        title = ''; 
+
+          var winsDisplay = "<p>WINS: " + wins + "</p>" + "<p>LOSSES: " + losses + "</p>"; 
+	        document.getElementById('winsDiv').innerHTML=winsDisplay;  //reset the display areas
+
+
+	           for (i=0; i<chosenMovie.length; i++) {
+	           	title += "_";
+	           }
+	        document.getElementById('blanks').innerHTML=title;  
+	        document.getElementById('alreadyGuessed').innerHTML=guesses.toUpperCase();
+                  var html = "<p>Remaining Guesses: " + numberOfRemainingGuesses + "</p>";
+	        document.getElementById('remaining-guesses').innerHTML=html;
+  	    }
 
 
 }
+
+
 
