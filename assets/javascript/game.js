@@ -18,7 +18,8 @@ numberOfRemainingGuesses = 10;
        // empty array which to push the user choices, in order to keep track of letters already chosen         
 var isPushed = []; 
 var guesses = '';
-var wins = 0, losses = 0;
+var wins = 0, losses = 0, newPrompt = 'GUESS THE LETTERS <br> IN THE MOVIE TITLE';
+
 //Sets the inital blank title so the player can see how many characters are in the title
 title = '';
 for (i=0; i<chosenMovie.length; i++) {title += '_';};
@@ -35,6 +36,11 @@ document.onkeyup = function(event) {
 // The following block of statements execute if the letter has not been chosen yet, AND the letter is in the letter array
 
    if ((isPushed.indexOf(userGuess) === -1) && (letters.indexOf(userGuess.toUpperCase()) >= 0)) {
+
+
+        //The press any key prompt will change the first time a player pushes a valid key
+        document.getElementById('topLeft').innerHTML = newPrompt;
+        document.getElementById('topLeft').style.color = 'green';
    	    // push the user choices to the empty array
         isPushed.push(userGuess);
         title = '';

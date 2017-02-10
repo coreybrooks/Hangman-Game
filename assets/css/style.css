@@ -41,28 +41,23 @@ h1 {
   opacity: 0.8;
 }
 .firstSection {
+  max-width: 400px;
   outline: 5px dotted #D6D6D6;
   outline-offset: 2px;
 }
 
 .secondSection {
   float: right;
-  padding: 30px;
+  padding: 30px;  
   height: 400px;
   outline: 5px dotted #D6D6D6;
   outline-offset: 2px;
   background-color: black;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 #topLeft {
   margin-bottom: 20px;
-}
-
-#currentWord {
-  clear: left;
-  color: green;
-  padding-left: 20px;
 }
 
 #placeholder {
