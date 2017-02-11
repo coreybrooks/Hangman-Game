@@ -70,15 +70,18 @@ totalClickCount++
                 //if the chosen letter is not in the movie title, then decrease the number of guesses remaining
                 //and display the letter in the already guessed section
                  if (chosenMovie.indexOf(userGuess) === -1) {
-                  badLetter.play()
+                  badLetter.play();
                  	numberOfRemainingGuesses--;
                  	guesses += " " + userGuess;
                  }
+                else {
+                soundClicks.play();
+                }
+
                 
             for (i=0; i<chosenMovie.length; i++) {
             	//if the chosen letter is in the isPushed array, then concatentate the letter to title, converts all to uppercase
 	           if (isPushed.indexOf(chosenMovie.charAt(i)) !== -1) {
-                 soundClicks.play();
 			        title += chosenMovie.charAt(i).toUpperCase();
 			    }
 			    //otherwise add "-" to the character space in title
@@ -105,7 +108,7 @@ console.log(chosenMovie);
           sound.play();
         	wins++;
           var source = 'assets/images/' + chosenMovie + '.jpg'; //uses the current chosenMovie to set a variable
-          console.log(source);                                  //to change the movie image and title in side panel
+                                                                //to change the movie image and title in side panel
           document.getElementById('movieImage').src = source;
           document.getElementById('placeholder').innerHTML = chosenMovie.toUpperCase();
 
