@@ -2,6 +2,10 @@
 
 // Global variables
 
+//function to play a sound
+
+
+
 
 // array of movie titles
   var movieTitles = ['gladiator', 'twilight', 'cinderella', 'uninhabited', 'inception', 'frozen', 'hancock', 'dracula',
@@ -19,6 +23,13 @@ numberOfRemainingGuesses = 10;
 var isPushed = []; 
 var guesses = '';
 var wins = 0, losses = 0, newPrompt = 'GUESS THE LETTERS <br> IN THE MOVIE TITLE';
+var totalClickCount = 0;
+var sound = new Audio('assets/images/sound38.mp3');
+var soundClicks = new Audio('assets/images/click.mp3');
+var fail = new Audio('assets/images/fail.wav');
+var badLetter = new Audio('assets/images/badLetter.mp3');
+
+
 
 //Sets the inital blank title so the player can see how many characters are in the title
 title = '';
@@ -33,14 +44,24 @@ document.onkeyup = function(event) {
 // Determine which key was pressed and converts all to lowercase
   var userGuess = event.key.toLowerCase();
 
-// The following block of statements execute if the letter has not been chosen yet, AND the letter is in the letter array
+//begins counting the total number of times a key is clicked, to help clear the original prompt
+totalClickCount++
 
-   if ((isPushed.indexOf(userGuess) === -1) && (letters.indexOf(userGuess.toUpperCase()) >= 0)) {
+// The following block of statements will execute if the letter has not been chosen yet
+// .. also executes the first time any key is pressed
+
+   if (isPushed.indexOf(userGuess) === -1) {
 
 
-        //The press any key prompt will change the first time a player pushes a valid key
+        //The press any key prompt will change the first time a player presses any key
         document.getElementById('topLeft').innerHTML = newPrompt;
         document.getElementById('topLeft').style.color = 'green';
+
+        //The following block of statements will execute if more than one button has been pressed, AND the letter is in the letter array
+
+      if ((totalClickCount > 1) && (letters.indexOf(userGuess.toUpperCase()) >= 0)) {
+
+
    	    // push the user choices to the empty array
         isPushed.push(userGuess);
         title = '';
@@ -49,6 +70,7 @@ document.onkeyup = function(event) {
                 //if the chosen letter is not in the movie title, then decrease the number of guesses remaining
                 //and display the letter in the already guessed section
                  if (chosenMovie.indexOf(userGuess) === -1) {
+                  badLetter.play()
                  	numberOfRemainingGuesses--;
                  	guesses += " " + userGuess;
                  }
@@ -56,6 +78,7 @@ document.onkeyup = function(event) {
             for (i=0; i<chosenMovie.length; i++) {
             	//if the chosen letter is in the isPushed array, then concatentate the letter to title, converts all to uppercase
 	           if (isPushed.indexOf(chosenMovie.charAt(i)) !== -1) {
+                 soundClicks.play();
 			        title += chosenMovie.charAt(i).toUpperCase();
 			    }
 			    //otherwise add "-" to the character space in title
@@ -78,6 +101,8 @@ console.log(chosenMovie);
 // The section below resets the play area and adds a win to the win counter if the player gets all the letters
 
         if (title.indexOf('_') === -1) {    //if no more blanks are in the title
+         // PlaySound
+          sound.play();
         	wins++;
           var source = 'assets/images/' + chosenMovie + '.jpg'; //uses the current chosenMovie to set a variable
           console.log(source);                                  //to change the movie image and title in side panel
@@ -104,6 +129,8 @@ console.log(chosenMovie);
 // The section below resets the play area and in the case that the player uses all of their guesses
 
         if (numberOfRemainingGuesses === 0) {
+
+            fail.play();
             losses++;
           var source = 'assets/images/' + chosenMovie + '.jpg'; //uses the current chosenMovie to set a variable
           console.log(source);                                  //to change the movie image and title in side panel
@@ -128,8 +155,7 @@ console.log(chosenMovie);
                   var html = "<p>Remaining Guesses: " + numberOfRemainingGuesses + "</p>";
 	        document.getElementById('remaining-guesses').innerHTML=html;
   	    }
-
-
+   }
 }
 
 
